@@ -27,7 +27,7 @@ script:
   fi; done
 - docker logs example_api
 - node_modules/.bin/newman run postman_collection.json -e postman_environment.json
-- docker build .
+- docker build -t niverhawk/devops-week2
 after_success:
 - docker login -u $DOCKER_USER -p $DOCKER_PASS
 - docker tag niverhawk/devops-week2 niverhawk/devops-week2:latest
