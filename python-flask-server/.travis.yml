@@ -1,27 +1,22 @@
-sudo: required 
+sudo: required
 services:
-  - docker
-# ref: https://docs.travis-ci.com/user/languages/python
+- docker
 language: python
 python:
-  - "3.8"
-
-
-
+- '3.8'
 before_install:
-  - docker version
-  - docker info
+- docker version
+- docker info
 install:
-    - npm install newman
-    - pip install -r requirements.txt
-    - pip install -r test-requirements.txt
-    - pip install nose
-    - pip install Flask-Testing
+- npm install newman
+- pip install -r requirements.txt
+- pip install -r test-requirements.txt
+- pip install nose
+- pip install Flask-Testing
 before_script:
-    - node --version
-    - npm --version
-    - node_modules/.bin/newman --version  
-    
+- node --version
+- npm --version
+- node_modules/.bin/newman --version
 script:
 - python -m unittest discover
 - docker build -t swagger-spring-example:1.0.0 .
@@ -32,8 +27,12 @@ script:
   fi; done
 - docker logs example_api
 - node_modules/.bin/newman run tests/postman_collection.json -e tests/postman_environment.json
-
 after_success:
-  - docker login -u $DOCKER_USER -p $DOCKER_PASS
-  - docker tag my_docker_reposetory/swagger_server my_docker_reposetory/swagger_server
-  - docker push my_docker_reposetory/swagger_server
+- docker login -u $DOCKER_USER -p $DOCKER_PASS
+- docker tag niverhawk/devops-week2/swagger_server my_docker_reposetory/swagger_server
+- docker push niverhawk/devops-week2/swagger_server
+env:
+  global:
+  - secure: oPPsLiDKAYIjGijHVIVrj8wku+m5mG7Gg0OUeVVnZ4WFiT7uWNXK1R7JdFTsCYjbXm6iTQ8XByl+aXCrqDrudCeVVwVkYkoZ4kgzV43GQaqgGFpaHzi+vbFfql8YWL8XCMyt+Gspxh5QpFB0fc0AExSOUFl1bq770GaQQnsOPez6u7jwIuyJrzjS89Mjs4utKB4R9sJu4kTzgWgw5OcD1OtRv1iir2EbxSxVLue4Gz24xerUbYk+QkFz8pvXI1IiZaGUbeite9bx8ZH6XudvBM0i3qyuR7mLuEptk8m2cYsO55+Gy5lmcDqPzjA7XjQJb9U25ZkrzQKxgvDM6540GlwfGpiBExRAteAD9WSYaEu9Ubr0q7wAXLJd8KeXUIkmV+4XLwJH9rj4bUmiubcVHn5QZsXHbNffVajaQr7+CV4/zo87aL7oev+ZJC9LWcqq/JX5yiJidngeoo0oCNZeUhk5UYtvV9pmQcqo5cHzoKLu5oM5rGtqsJXar33gzidMop6+P45waskMURyZ1N4xCVDm133FclAmodv/FzESbIUY56xH4EPUEybTWWFAM8Xq9/iRE9aOfySQYtsoJZeJSjdbVyMewTDC4GQcv/QvGt86HuzCQJsbGpOuMpp7mxC6I7M0Auq2JFBi7c4FJF4lxm18mYLs1XRCz6zxK7J/qRY=
+  - secure: DvP78x1KKAKzIahhS8DA7DaHg5x8Jf408ul1iTuKQjSUUZRGjYllRnmub9M79CgNQlGgA92joy4Yz8LZ0BkfXBdFk89WGAdMA4XZg5eI1rJrHlPYl2jfJxPt8WJIcVM2AAjz2N5eZYTrKKIBKkmXetECFaSsai2hq+iSG9E0JOBmhc+M2ahMO/4MczrrTojKHVkSGZxDdlepwGq57W/w9Kw/8arOvS5uEMr40ywMY8TIZcGIS0+/Gs4erClf/H3ZmdXRSl+kElUTBkfYUmd2Zdf9s3FPQOl2Scua3nUJsIP9ZdqaAgKSg1ijkxUIYi3r0QyIjePyOIckb9JX5oOYtJMeyo3i0fUmGbozShWWnEVD0O+dMosYg7MSiGPD+zeABy9qORzzFcUhMXv78DltQqHTflSn8n5dlLicfyaDNjgrb+TwWHeq93WDEIFFYDHVParHGAagagHifKcKWHKKAgIVrIJZ3oRcQu2klf//GoDx6QKCfVlGxEUEVgnsU0gvHYsL1yoZuMgJQp56tOqz1nQZ1/gCW11FRdi4cFyEmYXu7vpGwD+OWirCCPT1AXhXgSy6PYiuKLxQeMc7XZznGyAYcz5/Z+ybpV1o1VuHZE9HvibiGxrIUJx2KBVYjN3vPA+H2eN8YexX4pbKzxrZx6y34A1nZYRi2FyGiAlZctM=
+niverhawk/devops-week2
