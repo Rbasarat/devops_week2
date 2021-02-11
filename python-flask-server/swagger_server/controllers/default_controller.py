@@ -1,7 +1,6 @@
 import connexion
 
 from swagger_server.models.student import Student  # noqa: E501
-from swagger_server import util
 from swagger_server.service import student_service
 
 
@@ -46,3 +45,16 @@ def get_student_by_id(student_id, subject=None):  # noqa: E501
     :rtype: Student
     """
     return student_service.get_student_by_id(student_id, subject)
+
+
+def get_student_by_last_name(last_name):  # noqa: E501
+    """Find student by last name
+
+    Returns a single student # noqa: E501
+
+    :param last_name: The last name
+    :type last_name: str
+
+    :rtype: Student
+    """
+    return student_service.get_student_by_last_name(last_name)
